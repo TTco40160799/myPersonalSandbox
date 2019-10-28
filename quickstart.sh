@@ -1,3 +1,3 @@
 #!/bin/sh
 # my first docker file
-echo "Hello, world! The time is $(date)."
+echo "Hello, world! Now it's $(date)."
