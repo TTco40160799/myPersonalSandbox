@@ -1,0 +1,3 @@
+[submodule "friendlychgat-web"]
+	path = friendlychgat-web
+	url = https://github.com/badfatcat71/myPersonalSandbox.git
