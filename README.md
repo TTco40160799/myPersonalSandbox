@@ -37,4 +37,6 @@ Firebase, JavaScript/TypeScript, Node.js and Python tutorial and getting my habi
 - wagtail
 - CodeRed
 - create original CMS for my Blog site
-- Firebase Tutorial
+- create my blog site
+- flask
+- Firebase
