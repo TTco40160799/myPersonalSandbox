@@ -1,3 +1,39 @@
 <!DOCTYPE html>
 <html lang=jp>
-+
+
+
+<head></head>
+
+<body>
+    <div id="contents"></div>
+
+<script src="https://www.gstatic.com/firebasejs/5.5.4/firebase.js"></script>
+<script src="https://unpkg.com/flamelink/dist/flamelink.js"></script>
+
+<script >
+    const contents = document.getElementById('contents');
+    const config = {
+              apiKey: "AIzaSyAX7u_7Qtr7-Sy8jA1ghP3idEFW8j5eK8U",
+              authDomain: "badfatcatblog.firebaseapp.com",
+              databaseURL: "https://badfatcatblog.firebaseio.com",
+              projectId: "badfatcatblog",
+              storageBucket: "badfatcatblog.appspot.com",
+              messagingSenderId: "516012899371",
+    };
+
+    const firebaseApp = firebase.initializeApp(config);
+    const app = flamelink({ firebaseApp });
+
+    app.content.get('MyPosts')
+    .then(posts => {
+        Object.keys(posts).forEach(function(data) {
+          contents.innerHTML += posts[data].title + posts[data].content + '<hr>';
+        })
+    })
+
+</script>    
+
+
+</body>
+    
+    
