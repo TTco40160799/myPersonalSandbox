@@ -24,9 +24,9 @@ extract($decodedResponse);
 - will be more readable code especially when to compare with a set of long name consts (hopefully)
 ```php
 if(in_array($targetVariable, [
-TargetDifinedMasters::CATEGORY_NAME[OutputConfigItem[$condition1]],
-TargetDifinedMasters::CATEGORY_NAME[OutputConfigItem[$condition2]],
-TargetDifinedMasters::CATEGORY_NAME[OutputConfigItem[$condition3]]...
+    TargetDifinedMasters::CATEGORY_NAME[OutputConfigItem[$condition1]],
+    TargetDifinedMasters::CATEGORY_NAME[OutputConfigItem[$condition2]],
+    TargetDifinedMasters::CATEGORY_NAME[OutputConfigItem[$condition3]]...
 ...
 ])){
 ```
