@@ -4,7 +4,7 @@
 
 ## Vagrantfile
 ```vagrantfile
-Vagrant::Config.run do |config|
+Vagrant::Config.run do |+config|
   #...
   config.vm.share_folder "original_folder", "/virtual_folder", ""
   config.vm.provision "shell", path: "provision.sh"
@@ -57,6 +57,20 @@ ln -fs /vagrant_/var/www
 ```
 
 
-# docker
+# setup vagrant for docker
+```
+Vagrant.configure("2") do |config|
+#...
+ config.vm.provision "shell", inline: <<-SHELL
+    /etc/init.d/docker restart latest
+    
+    wget -L https://github.com/docker/compose/releases/download/1.24.1/docker-compose-`uname -s`-`uname -m`
+    chmod +x docker-compose-`uname -s`-`uname -m`
+    mv docker-compose-`uname -s`-`uname -m` /opt/bin/docker-compose
+    chown root:root /opt/bin/docker-compose
 
+    echo 'cd /vagrant' >> /etc/bashrc
+    echo 'docker-compose up -d' >> /etc/bashrc
+  SHELL
+```
 
