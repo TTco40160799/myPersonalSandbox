@@ -1,14 +1,22 @@
 # MarkDown CheatSheet
 - Link リンク
- [表示文字](URL)でリンクに変換
-> [Google](https://www.google.co.jp/)
+
+```
+［表示文字］（URL）でリンクに変換
+```
+
+[ググる](https://www.google.co.jp/)
 
 - 外部参照リンク
-URLが長くて読みづらくなる場合や同じリンクを何度も使用する場合は、リンク先への参照を定義できます。
-
-> [Googleを見る?][Google]
-
+URLが長い/同じリンクを複数回利用する場合、リンク先への参照を定義可能
+```
+[ググる?][Google]
 [Google]: https://brave.com/ja/
+```
+
+[ググる?][Google]
+[Google]: https://brave.com/ja/
+
 
 - 取り消し線
 
