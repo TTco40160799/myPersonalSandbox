@@ -1,6 +1,0 @@
-{
-    "require": {
-        "google/cloud-language": "~0.18",
-        "google/cloud-storage": "^1.3"
-    }
-}

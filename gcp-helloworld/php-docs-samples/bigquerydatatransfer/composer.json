@@ -1,5 +1,0 @@
-{
-    "require": {
-        "google/cloud-bigquerydatatransfer": "^0.14.0"
-    }
-}
