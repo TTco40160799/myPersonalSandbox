@@ -57,8 +57,8 @@
 https://qiita.com/CarlBrown23/items/84a6c1ce82f602eaa5a6
 
 ### HELP集
-```git
-# git flow feature
+##### git flow feature
+```
 git flow feature [list] [-v]
 git flow feature start [-F] <name> [<base>]
 git flow feature finish [-rFk] <name|nameprefix>
@@ -68,20 +68,23 @@ git flow feature diff [<name|nameprefix>]
 git flow feature rebase [-i] [<name|nameprefix>]
 git flow feature checkout [<name|nameprefix>]
 git flow feature pull <remote> [<name>]
-
-# git flow relase
+```
+##### git flow relase
+```
 git flow release [list] [-v]
 git flow release start [-F] <version>
 git flow release finish [-Fsumpk] <version>
 git flow release publish <name>
 git flow release track <name>
-
-# git flow hotfix
+```
+##### git flow hotfix
+```
 git flow hotfix [list] [-v]
 git flow hotfix start [-F] <version> [<base>]
 git flow hotfix finish [-Fsumpk] <version>
-
-# git flow support
+```
+##### git flow support
+```
 git flow support [list] [-v]
 git flow support start [-F] <version> <base>
 ```
