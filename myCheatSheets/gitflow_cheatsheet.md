@@ -89,3 +89,32 @@ git flow support [list] [-v]
 git flow support start [-F] <version> <base>
 ```
 
+# git hubについて
+- 最初の接続〜git cloneまで
+  - sshキー作成、コピー
+  ```
+  mkdir ~/.ssh
+  cd ~/.ssh
+  ssh-keygen -t rsa
+  pbcopy < ~/.ssh/id_rsa.pub
+  ```
+  - git hubにて公開鍵の設定
+  https://github.com/settings/ssh
+
+  - configの作成
+  ```
+  touch ~/.ssh/config
+  vi ~/.ssh/config
+
+  # 以下の内容をconfigに貼り付け
+  Host github
+  User git
+  Hostname github.com
+  Port 22
+  IdentityFile ~/.ssh/id_rsa
+  ```
+
+  - git hubとの連携
+  ```
+  git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY
+  ```
