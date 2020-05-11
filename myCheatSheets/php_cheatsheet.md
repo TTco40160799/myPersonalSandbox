@@ -1,37 +1,8 @@
 # php
-### to get the IP address via HTTPS
-  ```php
-  if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-      $ipArray = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-      $apiAddress = $ipArray[0];
-  } else {
-      $apiAddress = $_SERVER['REMOTE_ADDR'];
-  }
-  ```
 
-### to change the encoding and pull a request apart
-- notice:"mb_detect_encoding()" is NOT accurate as supposed to be
-```php
-$response = $_POST;
-$decodedResponse = [];
-foreach($response as $varName => $varValue){
-    $decodedResponse[$varName] = mb_convert_encoding(urldecode($varValue), 'UTF-8', 'the original encoding');
-}
-extract($decodedResponse);
-```
-
-### to compare a variable with multiple conditions using "in_array"
-- get readable code especially when to compare with a set of long name consts (hopefully)
-```php
-if(in_array($targetVariable, [
-    TargetDifinedMasters::CATEGORY_NAME[OutputConfigItem[$condition1]],
-    TargetDifinedMasters::CATEGORY_NAME[OutputConfigItem[$condition2]],
-    TargetDifinedMasters::CATEGORY_NAME[OutputConfigItem[$condition3]]...
-
-])){
-```
-<hr>
-
+<summary>基本構造</summary>
+<details>
+- string型
 ### Multi-byte String Methods
 #### multi byte string length
 ```php
@@ -154,10 +125,146 @@ bool mb_send_mail(string $to, string $subject, string $msg[, string $headers[, s
       ```
   - remember the restart <strong>Apache</strong>
 <hr>
+    - 基本は'シングルクォート'
+    - "ダブルクォート"は、特殊な場合だけ
+    - 変数を展開できる
+    - エスケープシーケンスが使える
+- 浮動小数点リテラル：float
+    - <仮数部> e/E <符号><指数部>
+    - e/Eの区別は特にない
+    - 例：35480000 = 3.548E5  = 3.548 * 10 ^ 5
+    - 例：0.001141 = 1.141e-3 = 1.141 * 10 ^ -3
+- 浮動小数点数の演算
+- resource型
+    - 外部にあるファイル等のリソース
+- 配列の結合
+- 配列の比較の順序：==, !=, <>　等
+- ビット演算子、というかビット演算そのもの：何に使うの？
+    - 良い記事](https://qiita.com/satoshinew/items/566bf91707b5371b62b6)
+    - 主なメリット
+        - データ量が少なくて済む
+        - 実際速い
+        - 一つのデータに複数の情報を詰め込める
+- 実行演算子
+    - バッククォートで囲んだブロック
+    - シェルとして実行される
+- エラー制御演算子
+    - メソッド前に「@」をつける
+    - 例: ＠print 1/0;
+    - なるべく使わずに、エラー制御にすべき
+    - デバグしにくくなる
+- 制御構文
+￼
+    - while：while(条件式){ 処理 }
+        1. 条件分岐
+        2. Trueの場合に任意処理、Falseで終了
+        3. 1へ戻る
+    - do~while：do{ 処理 }while (条件式)
+        1. 任意処理
+        2. 条件分岐
+        3. Trueの場合に1ヘ戻りFalseで終了
+    - for
+        1. 初期化処理
+        2. 条件分岐
+        3. Trueの場合に任意処理、Falseで終了
+        4. 増減処理
+        5. 2へ戻る
+    - foreach
+        1. 条件分岐：配列/オブジェクト内に要素があるかどうか
+        2. 任意処理
+        3. 1へ戻り、次の要素へ対象を移す
 
-### Array Methods
+    - カンマ演算子( , )
+        - 条件式、処理、増減式を追記できる
+        - for($i=0; $i<9; print "{$i}番目", $i++)
+        - 視認性悪いので濫用しないこと
+
+    - break
+        - 強制的にループから抜ける
+    - continue
+        - 強制的にループを1回分スキップする
+
+- 静的変数(static)について
+    - 同じ関数を複数回呼び出す際には保存されている
+    - 変数名で呼び出すことはない
+- 可変長引数の関数
+    - 「…」ピリオド3つを(型宣言)(…)(変数名)の順番でつける
+    - 引数の数が不特定の場合に利用
+        - function(int …$number)
+    - 渡す引数の全てが宣言された型である必要がある
+    - 可変長引数は、引数リストの最後尾に記述する必要がある
+    - PHP5.6以降の機能
+```php
+function replaceContents(string $path, string …$args) :string
+{
+	$data = file_get_contents($path);
+	for($i = 0; $i < count($args); $i++){
+		$data = str_replace(‘{’ . ($i) . ‘}’, $args[$I], $data);
+	}
+	return $data;
+}
+```
+    - 「…」直後に配列(≠連想配列)を渡すと、各要素を変数にあてがってくれる(=アンパック)
+```php
+function products(int $tate, int $yoko, int $oku) :int
+{
+	return $tate * $yoko * $oku;
+} 
+
+print products(…[10,10,10]) . ‘立方メートル’;	// 結果：1,000立方メートル
+```
+
+- 可変関数
+    - 定義済み関数名の変数によって呼び出す関数
+    - 型名：callable
+```php
+function callableFunction(callable $func, array $array)
+{
+	return $func(…$array);
+}
+
+$name = ‘products’;
+$size = [1, 2, 3];
+print callableFunction($name, $size);	//結果：6立方メートル
+```
+- 無名関数 / use
+    - 親スコープの変数等を引き継ぐ
+		https://www.php.net/manual/ja/functions.anonymous.php
+
+</details>
 
 
+### to get the IP address via HTTPS
+  ```php
+  if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+      $ipArray = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+      $apiAddress = $ipArray[0];
+  } else {
+      $apiAddress = $_SERVER['REMOTE_ADDR'];
+  }
+  ```
+
+### to change the encoding and pull a request apart
+- notice:"mb_detect_encoding()" is NOT accurate as supposed to be
+```php
+$response = $_POST;
+$decodedResponse = [];
+foreach($response as $varName => $varValue){
+    $decodedResponse[$varName] = mb_convert_encoding(urldecode($varValue), 'UTF-8', 'the original encoding');
+}
+extract($decodedResponse);
+```
+
+### to compare a variable with multiple conditions using "in_array"
+- get readable code especially when to compare with a set of long name consts (hopefully)
+```php
+if(in_array($targetVariable, [
+    TargetDifinedMasters::CATEGORY_NAME[OutputConfigItem[$condition1]],
+    TargetDifinedMasters::CATEGORY_NAME[OutputConfigItem[$condition2]],
+    TargetDifinedMasters::CATEGORY_NAME[OutputConfigItem[$condition3]]...
+
+])){
+```
 <hr>
 
 ### to reduce duplicated arrays
