@@ -2,7 +2,13 @@
 
 <summary>基本構造</summary>
 <details>
+
 - string型
+    - 基本は'シングルクォート'
+    - "ダブルクォート"は、特殊な場合だけ
+    - 変数を展開できる
+    - エスケープシーケンスが使える
+
 ### Multi-byte String Methods
 #### multi byte string length
 ```php
@@ -125,10 +131,7 @@ bool mb_send_mail(string $to, string $subject, string $msg[, string $headers[, s
       ```
   - remember the restart <strong>Apache</strong>
 <hr>
-    - 基本は'シングルクォート'
-    - "ダブルクォート"は、特殊な場合だけ
-    - 変数を展開できる
-    - エスケープシーケンスが使える
+
 - 浮動小数点リテラル：float
     - <仮数部> e/E <符号><指数部>
     - e/Eの区別は特にない
