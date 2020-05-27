@@ -1,4 +1,5 @@
 # php
+## based on "独習PHP"
 
 - string型
     - 基本は'シングルクォート'
@@ -230,3 +231,67 @@ print callableFunction($name, $size);	//結果：6立方メートル
 - 無名関数 / use
     - 親スコープの変数等を引き継ぐ
 		https://www.php.net/manual/ja/functions.anonymous.php
+
+- ジェネレータ
+  - 一見、普通の関数
+    - 違うのは、「」命令を使える
+    - その時々の値を返せる
+      - 仮に返却される値が10万個あっても、全てをメモリに格納することなく随時出力できるためメモリ節約できる
+      - なにかしらのルールにしたがって、値セットを生成する際にはジェネレータが有効手段
+```php
+// 素数を出力し続けるジェネレータ
+function getPrimes(int $index): Generator
+{
+  $num = 2;
+  while(true){
+    if(isPrime($num)){yield $num;}
+    $num++;
+  }
+}
+
+// 素数かどうかの判別式
+function isPrime(int $int): bool
+{
+  $prime = true;
+  for($i = 2; $i <= floor(sqrt($int)); $i++){
+    if($int % $i == =0){
+      $prime = false;
+      break;
+    }
+  }
+  return $prime;
+}
+
+foreach($getPrimes() as $prime){
+  // 50未満だけを出力（無限ループ回避）
+  if($prime > 50){
+    die();
+  }
+  print $prime . ', ';
+}
+/* 結果は以下の通り
+2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 47, 
+*/
+```
+  - PHP7.0以降では「return」命令も取れる（もちろんジェネレータは終了する）
+    - 「getReturn()」で受け取る
+```php
+function readLines(string $path) :Generator
+{
+  $i = 0;
+  $file = fopen($path, 'rb') ?? die('ファイルが見つかりません');
+  // 行単位でテキストを取得してyeild
+  while($line = fget($file, 1024)){
+    $i++;
+    yield $line;
+  }
+  fclose($file);
+  return $i;
+}
+
+$gen = readLines('~/sample.dat');
+foreach($gen as $line){
+  print $line.'<br>';
+}
+print "{$gen->getReturn()}行ありました。";
+```

@@ -33,12 +33,21 @@ if(in_array($targetVariable, [
 ```
 <hr>
 
+### to set secure on cookie
+```php
+$name   = $this->session->getName();
+$cookie = $this->cookies->get($name);
+$cookie->setSecure(true);
+```
+
 ### to reduce duplicated arrays
 ```php
 generator fuction(object $gf)
 ```
 
+### Query Bulder @Phalcon
 ```php
-
+$fromDb = $this->getDi()->get('database_name')->query()
+                ->inWhere('table_name.column_name', ['a', 'b']);
 ```
 
